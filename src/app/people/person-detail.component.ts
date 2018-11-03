@@ -5,19 +5,24 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-person-detail',
   template: `
     <p>
-      Displaying person with id {{ personId }}
+      person-detail works!
     </p>
+    <div *ngIf="shouldShowChildren">
+      We should also load the children.
+    </div>
   `,
   styles: []
 })
 export class PersonDetailComponent implements OnInit {
-  personId;
-  constructor(private activeRoute: ActivatedRoute) {}
+  shouldShowChildren = false;
+  constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
-    this.personId = this.activeRoute.snapshot.params['personId'];
-    // this.activeRoute.params.subscribe(data => {
-    //   this.personId = data['personId'];
+    this.shouldShowChildren =
+      this.activatedRoute.snapshot.queryParams['showChilds'] === 'true';
+
+    // this.activatedRoute.queryParams.subscribe(data => {
+    //   this.shouldShowChildren = data['showChilds'] === 'true';
     // });
   }
 }
