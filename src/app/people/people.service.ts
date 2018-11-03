@@ -30,4 +30,19 @@ export class PeopleService {
       map(people => people.filter(x => x.id === id)[0])
     );
   }
+
+  save(value: any): any {
+    if (value.id) {
+      const currentPerson = this.people.find(x => x.id === value.id);
+      if (currentPerson) {
+        currentPerson.name = value.name;
+      }
+    } else {
+      const newPerson = {
+        ...value,
+        id: Math.floor(Math.random() * 100)
+      };
+      this.people.push(newPerson);
+    }
+  }
 }

@@ -2,31 +2,33 @@ import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 import { PeopleService } from './people.service';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-person-detail',
   template: `
-    <pre>{{ person | json }}</pre>
-    <div *ngIf="shouldShowChildren">
-      We should also load the children.
-    </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
+      <input type="name" formControlName="name" />
+
+      <button>Save</button>
+    </form>
   `,
   styles: []
 })
-export class PersonDetailComponent implements OnInit, OnDestroy {
+export class PersonDetailComponent implements OnInit {
   person;
-  shouldShowChildren = false;
+  form: FormGroup;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private peopleService: PeopleService
-  ) {}
+  ) {
+    this.form = new FormGroup({
+      name: new FormControl()
+    });
+  }
 
   ngOnInit() {
-    this.activatedRoute.queryParamMap.subscribe(queryParams => {
-      this.shouldShowChildren = queryParams.get('showChilds') === 'true';
-    });
-
     this.activatedRoute.params
       .pipe(
         switchMap(params =>
@@ -35,9 +37,14 @@ export class PersonDetailComponent implements OnInit, OnDestroy {
       )
       .subscribe(person => {
         this.person = person;
+        this.form.patchValue(person);
       });
   }
-  ngOnDestroy(): void {
-    console.log('people detail destroyed');
+
+  onSubmit({ value, valid }) {
+    if (valid) {
+      value.id = this.person.id;
+      this.peopleService.save(value);
+    }
   }
 }
