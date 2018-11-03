@@ -11,6 +11,8 @@ export class PersonDataResolver implements Resolve<any> {
   constructor(private peopleService: PeopleService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    console.log('PersonDataResolver', route.data['loadAddresses']);
+
     return this.peopleService.getPersonById(+route.params['personId']);
   }
 }

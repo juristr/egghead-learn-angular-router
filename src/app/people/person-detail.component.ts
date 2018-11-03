@@ -20,6 +20,7 @@ export class PersonDetailComponent implements OnInit {
 
   ngOnInit() {
     this.activeRoute.data.subscribe(data => {
+      console.log('Person detail component', data['loadAddresses']);
       this.person = data['person'];
     });
     // this.activeRoute.params

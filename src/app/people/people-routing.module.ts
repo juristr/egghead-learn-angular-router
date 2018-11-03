@@ -7,6 +7,9 @@ const routes = [
   {
     path: 'people/:personId',
     component: PersonDetailComponent,
+    data: {
+      loadAddresses: true
+    },
     resolve: {
       person: PersonDataResolver
     }
