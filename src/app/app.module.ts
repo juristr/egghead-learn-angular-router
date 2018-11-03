@@ -6,6 +6,7 @@ import { RouterModule, Route } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 const routes: Route[] = [
   {
@@ -20,11 +21,20 @@ const routes: Route[] = [
   {
     path: 'about',
     component: AboutComponent
+  },
+  {
+    path: '**',
+    component: NotfoundComponent
   }
 ];
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, AboutComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    AboutComponent,
+    NotfoundComponent
+  ],
   imports: [BrowserModule, RouterModule.forRoot(routes)],
   providers: [],
   bootstrap: [AppComponent]
