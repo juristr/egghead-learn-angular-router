@@ -1,20 +1,21 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { PeopleService } from './people.service';
 import { switchMap } from 'rxjs/operators';
+import { PeopleService } from './people.service';
 
 @Component({
   selector: 'app-person-detail',
   template: `
-    <p>
-      person-detail works!
-    </p>
     <pre>{{ person | json }}</pre>
+    <div *ngIf="shouldShowChildren">
+      We should also load the children.
+    </div>
   `,
   styles: []
 })
 export class PersonDetailComponent implements OnInit {
   person;
+  shouldShowChildren = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -22,6 +23,10 @@ export class PersonDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.activatedRoute.queryParamMap.subscribe(queryParams => {
+      this.shouldShowChildren = queryParams.get('showChilds') === 'true';
+    });
+
     this.activatedRoute.params
       .pipe(
         switchMap(params =>
@@ -31,12 +36,5 @@ export class PersonDetailComponent implements OnInit {
       .subscribe(person => {
         this.person = person;
       });
-
-    // this.activatedRoute.params.subscribe(params => {
-    //   const personid = params['personId'];
-    //   this.peopleService.getPersonById(+personid).subscribe(person => {
-    //     this.person = person;
-    //   });
-    // });
   }
 }

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-contact-list',
   template: `
+    <h3>Contacts</h3>
     <p>
       contact-list works!
     </p>
@@ -10,10 +11,7 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class ContactListComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

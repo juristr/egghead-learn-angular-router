@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { of, Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class PeopleService {
   private people = [
     {
@@ -13,12 +12,22 @@ export class PeopleService {
     {
       id: 2,
       name: 'Steffi'
+    },
+    {
+      id: 3,
+      name: 'Thomas'
     }
   ];
 
   constructor() {}
 
-  getPersonById(personId: number) {
-    return of(this.people.find(x => x.id === personId));
+  getAll() {
+    return of(this.people);
+  }
+
+  getPersonById(id: number): Observable<any> {
+    return of(this.people).pipe(
+      map(people => people.filter(x => x.id === id)[0])
+    );
   }
 }
