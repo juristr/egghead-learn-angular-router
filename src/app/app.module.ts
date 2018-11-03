@@ -1,32 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { RouterModule, Route } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
-import { NotfoundComponent } from './notfound/notfound.component';
-
-const routes: Route[] = [
-  {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  },
-  {
-    path: 'home',
-    component: HomeComponent
-  },
-  {
-    path: 'about',
-    component: AboutComponent
-  },
-  {
-    path: '**',
-    component: NotfoundComponent
-  }
-];
+import { HomeComponent } from './home.component';
+import { AboutComponent } from './about.component';
+import { NotfoundComponent } from './notfound.component';
+import { PeopleModule } from './people/people.module';
+import { ContactsModule } from './contacts/contacts.module';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +17,7 @@ const routes: Route[] = [
     AboutComponent,
     NotfoundComponent
   ],
-  imports: [BrowserModule, RouterModule.forRoot(routes)],
+  imports: [BrowserModule, PeopleModule, ContactsModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent]
 })
