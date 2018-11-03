@@ -6,10 +6,10 @@
 </div>
 
 <nav>
-  <a [routerLink]="['/home']">Home</a>
-  <a [routerLink]="['/contacts', 'list']">Contacts</a>
-  <a [routerLink]="['/people', 'list']">People</a>
-  <a [routerLink]="['/about']">About</a>
+  <a [routerLink]="['/home']" routerLinkActive="active-route">Home</a>
+  <a [routerLink]="['/contacts', 'list']" routerLinkActive="active-route">Contacts</a>
+  <a [routerLink]="['/people', 'list']" routerLinkActive="active-route">People</a>
+  <a [routerLink]="['/about']" routerLinkActive="active-route">About</a>
 </nav>
 
 <router-outlet></router-outlet>
