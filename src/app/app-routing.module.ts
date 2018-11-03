@@ -27,10 +27,8 @@ const routes = [
   {
     path: 'people',
     loadChildren: './people/people.module#PeopleModule',
-    data: {
-      preload: true
-    },
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    canLoad: [AuthGuard]
   },
   {
     path: '**',
