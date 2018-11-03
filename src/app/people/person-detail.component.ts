@@ -1,6 +1,6 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, filter } from 'rxjs/operators';
 import { PeopleService } from './people.service';
 import { FormGroup, FormControl } from '@angular/forms';
 
@@ -9,15 +9,17 @@ import { FormGroup, FormControl } from '@angular/forms';
   template: `
     <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
       <input type="name" formControlName="name" />
-
       <button>Save</button>
     </form>
+
+    Unsaved changes: {{ isDirty }}
   `,
   styles: []
 })
 export class PersonDetailComponent implements OnInit {
   person;
   form: FormGroup;
+  isDirty = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -38,6 +40,14 @@ export class PersonDetailComponent implements OnInit {
       .subscribe(person => {
         this.person = person;
         this.form.patchValue(person);
+
+        this.form.get('name').valueChanges.subscribe(nameValue => {
+          if (nameValue !== this.person.name) {
+            this.isDirty = true;
+          } else {
+            this.isDirty = false;
+          }
+        });
       });
   }
 
@@ -45,6 +55,7 @@ export class PersonDetailComponent implements OnInit {
     if (valid) {
       value.id = this.person.id;
       this.peopleService.save(value);
+      this.isDirty = false;
     }
   }
 }

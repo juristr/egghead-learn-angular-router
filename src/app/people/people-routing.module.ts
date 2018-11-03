@@ -2,6 +2,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { PersonDetailComponent } from './person-detail.component';
 import { PeopleListComponent } from './people-list.component';
+import { CanDeactivateDirtyComponent } from './can-deactivate.guard';
 
 const routes = [
   {
@@ -10,7 +11,8 @@ const routes = [
     children: [
       {
         path: ':personId',
-        component: PersonDetailComponent
+        component: PersonDetailComponent,
+        canDeactivate: [CanDeactivateDirtyComponent]
       }
     ]
   }
