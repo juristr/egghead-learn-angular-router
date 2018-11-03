@@ -1,10 +1,10 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align: right">
-  <!-- <a href="javascript:;" *ngIf="authService.isLoggedIn(); else logoutTmpl" (click)="login()">Login</a>
+  <a href="javascript:;" *ngIf="authService.isLoggedIn(); else loginTmpl" (click)="logout()">Logout</a>
 
-  <ng-template #logoutTmpl>
-    <a href="javascript:;" (click)="logout()">Logout</a>
-  </ng-template> -->
+  <ng-template #loginTmpl>
+    <a href="javascript:;" (click)="login()">Login</a>
+  </ng-template>
 </div>
 
 <div style="text-align:center">

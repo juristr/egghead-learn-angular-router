@@ -4,6 +4,7 @@ import { NotfoundComponent } from './notfound.component';
 import { AboutComponent } from './about.component';
 import { HomeComponent } from './home.component';
 import { CustomRoutePreloader } from './custom-route-preloader';
+import { AuthGuard } from './auth.guard';
 
 const routes = [
   {
@@ -28,7 +29,8 @@ const routes = [
     loadChildren: './people/people.module#PeopleModule',
     data: {
       preload: true
-    }
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: '**',
@@ -42,7 +44,7 @@ const routes = [
       preloadingStrategy: CustomRoutePreloader
     })
   ],
-  providers: [CustomRoutePreloader],
+  providers: [CustomRoutePreloader, AuthGuard],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
