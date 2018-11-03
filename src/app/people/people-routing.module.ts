@@ -6,11 +6,13 @@ import { PeopleListComponent } from './people-list.component';
 const routes = [
   {
     path: 'people',
-    component: PeopleListComponent
-  },
-  {
-    path: 'people/:personId',
-    component: PersonDetailComponent
+    component: PeopleListComponent,
+    children: [
+      {
+        path: ':personId',
+        component: PersonDetailComponent
+      }
+    ]
   }
 ];
 
