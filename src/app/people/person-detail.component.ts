@@ -47,10 +47,8 @@ export class PersonDetailComponent implements OnInit {
     this.person.name = personName;
     this.peopleService.save(this.person).subscribe(() => {
       // redirect back people list
-      this.router.navigate(['../'], {
-        relativeTo: this.activatedRoute,
-        preserveQueryParams: true
-      });
+      // this.router.navigateByUrl('/people');
+      this.router.navigate(['../'], { relativeTo: this.activatedRoute });
     });
   }
 }
