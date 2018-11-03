@@ -1,30 +1,25 @@
-import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 import { PeopleService } from './people.service';
 
 @Component({
   selector: 'app-person-detail',
   template: `
-    <div style="padding-top: 15px;">
-      <label>Id: {{ person.id }}</label>
+    <pre>{{ person | json }}</pre>
+    <div *ngIf="shouldShowChildren">
+      We should also load the children.
     </div>
-    <div>
-      <label>Name:</label>
-      <input type="text" #nameInput [value]="person.name">
-    </div>
-    <button (click)="onSave(nameInput.value)">Save</button>
   `,
   styles: []
 })
-export class PersonDetailComponent implements OnInit {
+export class PersonDetailComponent implements OnInit, OnDestroy {
   person;
   shouldShowChildren = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private peopleService: PeopleService,
-    private router: Router
+    private peopleService: PeopleService
   ) {}
 
   ngOnInit() {
@@ -39,18 +34,10 @@ export class PersonDetailComponent implements OnInit {
         )
       )
       .subscribe(person => {
-        this.person = Object.assign({}, person);
+        this.person = person;
       });
   }
-
-  onSave(personName) {
-    this.person.name = personName;
-    this.peopleService.save(this.person).subscribe(() => {
-      // redirect back people list
-      this.router.navigate(['../'], {
-        relativeTo: this.activatedRoute,
-        preserveQueryParams: true
-      });
-    });
+  ngOnDestroy(): void {
+    console.log('people detail destroyed');
   }
 }
