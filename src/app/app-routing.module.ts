@@ -25,10 +25,7 @@ const routes = [
   },
   {
     path: 'people',
-    loadChildren: './people/people.module#PeopleModule',
-    data: {
-      preload: true
-    }
+    loadChildren: './people/people.module#PeopleModule'
   },
   {
     path: '**',
