@@ -9,6 +9,11 @@ import { AboutComponent } from './about/about.component';
 
 const routes: Route[] = [
   {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
+  {
     path: 'home',
     component: HomeComponent
   },
