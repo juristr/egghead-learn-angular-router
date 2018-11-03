@@ -3,6 +3,7 @@ import { RouterModule, PreloadAllModules } from '@angular/router';
 import { NotfoundComponent } from './notfound.component';
 import { AboutComponent } from './about.component';
 import { HomeComponent } from './home.component';
+import { CustomRoutePreloader } from './custom-route-preloader';
 
 const routes = [
   {
@@ -24,7 +25,10 @@ const routes = [
   },
   {
     path: 'people',
-    loadChildren: './people/people.module#PeopleModule'
+    loadChildren: './people/people.module#PeopleModule',
+    data: {
+      preload: true
+    }
   },
   {
     path: '**',
@@ -35,9 +39,10 @@ const routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-      preloadingStrategy: PreloadAllModules
+      preloadingStrategy: CustomRoutePreloader
     })
   ],
+  providers: [CustomRoutePreloader],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
