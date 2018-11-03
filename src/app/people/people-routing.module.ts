@@ -1,16 +1,15 @@
+import { PersonDetailComponent } from './person-detail.component';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { PersonDetailComponent } from './person-detail.component';
-import { PeopleListComponent } from './people-list.component';
+import { PersonDataResolver } from './person-resolver.service';
 
 const routes = [
   {
-    path: 'people/list',
-    component: PeopleListComponent
-  },
-  {
     path: 'people/:personId',
-    component: PersonDetailComponent
+    component: PersonDetailComponent,
+    resolve: {
+      person: PersonDataResolver
+    }
   }
 ];
 

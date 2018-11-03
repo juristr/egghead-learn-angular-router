@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PersonDetailComponent } from './person-detail.component';
 import { PeopleService } from './people.service';
-import { PeopleListComponent } from './people-list.component';
+import { PersonDataResolver } from './person-resolver.service';
 
 @NgModule({
   imports: [CommonModule, PeopleRoutingModule],
-  declarations: [PersonDetailComponent, PeopleListComponent],
-  providers: [PeopleService]
+  providers: [PeopleService, PersonDataResolver],
+  declarations: [PersonDetailComponent]
 })
 export class PeopleModule {}

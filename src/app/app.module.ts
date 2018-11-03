@@ -7,7 +7,6 @@ import { HomeComponent } from './home.component';
 import { AboutComponent } from './about.component';
 import { NotfoundComponent } from './notfound.component';
 import { PeopleModule } from './people/people.module';
-import { ContactsModule } from './contacts/contacts.module';
 import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
@@ -17,7 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
     AboutComponent,
     NotfoundComponent
   ],
-  imports: [BrowserModule, PeopleModule, ContactsModule, AppRoutingModule],
+  imports: [BrowserModule, PeopleModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent]
 })

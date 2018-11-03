@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { of, Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable()
 export class PeopleService {
@@ -20,10 +20,6 @@ export class PeopleService {
   ];
 
   constructor() {}
-
-  getAll() {
-    return of(this.people);
-  }
 
   getPersonById(id: number): Observable<any> {
     return of(this.people).pipe(
