@@ -1,5 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { PeopleService } from './people.service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-person-detail',
@@ -7,22 +9,34 @@ import { Component, OnInit } from '@angular/core';
     <p>
       person-detail works!
     </p>
-    <div *ngIf="shouldShowChildren">
-      We should also load the children.
-    </div>
+    <pre>{{ person | json }}</pre>
   `,
   styles: []
 })
 export class PersonDetailComponent implements OnInit {
-  shouldShowChildren = false;
-  constructor(private activatedRoute: ActivatedRoute) {}
+  person;
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private peopleService: PeopleService
+  ) {}
 
   ngOnInit() {
-    this.shouldShowChildren =
-      this.activatedRoute.snapshot.queryParams['showChilds'] === 'true';
+    this.activatedRoute.params
+      .pipe(
+        switchMap(params =>
+          this.peopleService.getPersonById(+params['personId'])
+        )
+      )
+      .subscribe(person => {
+        this.person = person;
+      });
 
-    // this.activatedRoute.queryParams.subscribe(data => {
-    //   this.shouldShowChildren = data['showChilds'] === 'true';
+    // this.activatedRoute.params.subscribe(params => {
+    //   const personid = params['personId'];
+    //   this.peopleService.getPersonById(+personid).subscribe(person => {
+    //     this.person = person;
+    //   });
     // });
   }
 }
