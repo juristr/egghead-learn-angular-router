@@ -4,8 +4,12 @@
     Angular router
   </h1>
 </div>
-<!-- <nav>
-  <a [routerLink]="['people', 'path1']">Path 1</a>
-  <a [routerLink]="['people', 'path2']">Path 2</a>
-</nav> -->
+
+<nav>
+  <a [routerLink]="['/home']" routerLinkActive="active-route">Home</a>
+  <a [routerLink]="['/contacts', 'list']" routerLinkActive="active-route">Contacts</a>
+  <a [routerLink]="['/people']" routerLinkActive="active-route">People</a>
+  <a [routerLink]="['/about']" routerLinkActive="active-route">About</a>
+</nav>
+
 <router-outlet></router-outlet>

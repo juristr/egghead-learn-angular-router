@@ -1,36 +1,56 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { PeopleService } from './people.service';
 import { switchMap } from 'rxjs/operators';
+import { PeopleService } from './people.service';
 
 @Component({
   selector: 'app-person-detail',
   template: `
-    <pre>{{ person | json }}</pre>
+    <div style="padding-top: 15px;">
+      <label>Id: {{ person.id }}</label>
+    </div>
+    <div>
+      <label>Name:</label>
+      <input type="text" #nameInput [value]="person.name">
+    </div>
+    <button (click)="onSave(nameInput.value)">Save</button>
   `,
   styles: []
 })
 export class PersonDetailComponent implements OnInit {
   person;
+  shouldShowChildren = false;
 
   constructor(
-    private activeRoute: ActivatedRoute,
-    private peopleService: PeopleService
+    private activatedRoute: ActivatedRoute,
+    private peopleService: PeopleService,
+    private router: Router
   ) {}
 
   ngOnInit() {
-    this.activeRoute.data.subscribe(data => {
-      console.log('Person detail component', data['loadAddresses']);
-      this.person = data['person'];
+    this.activatedRoute.queryParamMap.subscribe(queryParams => {
+      this.shouldShowChildren = queryParams.get('showChilds') === 'true';
     });
-    // this.activeRoute.params
-    //   .pipe(
-    //     switchMap(params =>
-    //       this.peopleService.getPersonById(+params['personId'])
-    //     )
-    //   )
-    //   .subscribe(person => {
-    //     this.person = person;
-    //   });
+
+    this.activatedRoute.params
+      .pipe(
+        switchMap(params =>
+          this.peopleService.getPersonById(+params['personId'])
+        )
+      )
+      .subscribe(person => {
+        this.person = Object.assign({}, person);
+      });
+  }
+
+  onSave(personName) {
+    this.person.name = personName;
+    this.peopleService.save(this.person).subscribe(() => {
+      // redirect back people list
+      this.router.navigate(['../'], {
+        relativeTo: this.activatedRoute,
+        preserveQueryParams: true
+      });
+    });
   }
 }

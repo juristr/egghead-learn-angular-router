@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, delay } from 'rxjs/operators';
 
 @Injectable()
 export class PeopleService {
@@ -21,9 +21,22 @@ export class PeopleService {
 
   constructor() {}
 
+  getAll() {
+    return of(this.people);
+  }
+
   getPersonById(id: number): Observable<any> {
     return of(this.people).pipe(
       map(people => people.filter(x => x.id === id)[0])
     );
+  }
+
+  save(person) {
+    const p = this.people.find(x => x.id === person.id);
+    if (p) {
+      p.name = person.name;
+    }
+
+    return of(true).pipe(delay(1000));
   }
 }
