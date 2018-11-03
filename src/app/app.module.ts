@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home.component';
 import { AboutComponent } from './about.component';
 import { NotfoundComponent } from './notfound.component';
-import { PeopleModule } from './people/people.module';
 import { ContactsModule } from './contacts/contacts.module';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -17,7 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
     AboutComponent,
     NotfoundComponent
   ],
-  imports: [BrowserModule, PeopleModule, ContactsModule, AppRoutingModule],
+  imports: [BrowserModule, ContactsModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent]
 })

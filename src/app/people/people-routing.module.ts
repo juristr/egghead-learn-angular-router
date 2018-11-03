@@ -5,7 +5,7 @@ import { PeopleListComponent } from './people-list.component';
 
 const routes = [
   {
-    path: 'people',
+    path: '',
     component: PeopleListComponent,
     children: [
       {
