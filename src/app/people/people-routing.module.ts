@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 
 const routes = [
   {
-    path: 'people/persondetail',
+    path: 'people/:personId',
     component: PersonDetailComponent
   }
 ];
